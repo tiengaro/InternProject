@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InternProject.Views.HomePageTabHome"
+             Title="HOME"
+             NavigationPage.HasNavigationBar="True">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Icon="plus.png" Command="{Binding ClickAddNewCommand}" />
+    </ContentPage.ToolbarItems>
+
+    <ListView
+        ItemsSource="{Binding Transactions}">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <StackLayout Orientation="Horizontal">
+                        <BoxView WidthRequest="15" Color="Blue" />
+
+                        <StackLayout HorizontalOptions="StartAndExpand"
+                                     Padding="5, 0">
+                            <StackLayout Orientation="Horizontal">
+                                <Image WidthRequest="20" HeightRequest="20" Aspect="AspectFill"
+                                       Source="ic_shopping_cart_black_24dp" />
+                                <Label Text="{Binding Type}" FontAttributes="Bold" />
+                            </StackLayout>
+
+                            <Label Text="{Binding Description}" TextColor="Gray" />
+                        </StackLayout>
+
+                        <StackLayout HorizontalOptions="End">
+                            <Label Text="{Binding Price}" HorizontalOptions="CenterAndExpand" />
+                            <Label Text="{Binding Date}" HorizontalOptions="CenterAndExpand" />
+                        </StackLayout>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+</ContentPage>

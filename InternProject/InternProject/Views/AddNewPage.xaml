@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"  
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InternProject.Views.AddNewPage"
+             xmlns:converters="clr-namespace:InternProject.Converters;assemply=InternProject"
+             Title="Add new">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:DateTimeToDateTimeOffsetConverter x:Key="DateTimeToDateTimeOffsetConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <StackLayout Padding="10">
+        <TableView Intent="Form" VerticalOptions="Start">
+            <TableRoot>
+                <TableSection>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal" Spacing="5">
+                            <BoxView WidthRequest="15" Color="Blue" />
+                            <Label Text="Desciption" VerticalOptions="CenterAndExpand" />
+                            <Entry HorizontalOptions="FillAndExpand" Text="{Binding TransactionView.Description, Mode=TwoWay}"/>
+                        </StackLayout>
+                    </ViewCell>
+                </TableSection>
+
+                <TableSection Title=" ">
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal" Spacing="5">
+                            <BoxView WidthRequest="15" Color="Gray" />
+                            <Label Text="Type" VerticalOptions="CenterAndExpand" />
+                            <Picker HorizontalOptions="FillAndExpand" ItemsSource="{Binding Types}" SelectedItem="{Binding TransactionView.Type}"/>
+                        </StackLayout>
+                    </ViewCell>
+                </TableSection>
+
+                <TableSection Title=" ">
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal" Spacing="5">
+                            <BoxView WidthRequest="15" Color="Gray" />
+                            <Label Text="Price" VerticalOptions="CenterAndExpand" />
+                            <Entry Keyboard="Numeric" HorizontalOptions="FillAndExpand" Text="{Binding TransactionView.Price, Mode=TwoWay}"/>
+                        </StackLayout>
+                    </ViewCell>
+                </TableSection>
+
+                <TableSection Title=" ">
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal" Spacing="5">
+                            <BoxView WidthRequest="15" Color="Gray" />
+                            <Label Text="Date" VerticalOptions="CenterAndExpand" />
+                            <DatePicker HorizontalOptions="FillAndExpand" Date="{Binding TransactionView.Date, Converter={StaticResource DateTimeToDateTimeOffsetConverter}"/>
+                        </StackLayout>
+                    </ViewCell>
+                </TableSection>
+            </TableRoot>
+        </TableView>
+
+        <Label Text="Note" />
+        <Editor HeightRequest="100" VerticalOptions="CenterAndExpand" Text="{Binding TransactionView.Note, Mode=TwoWay}"/>
+        <StackLayout Orientation="Horizontal" VerticalOptions="End">
+            <Button Text="Cancel" HorizontalOptions="FillAndExpand" Command="{Binding ClickCancelCommand}"/>
+            <Button Text="Add" HorizontalOptions="FillAndExpand" Command="{Binding ClickAddNewTransactionCommand}"/>
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

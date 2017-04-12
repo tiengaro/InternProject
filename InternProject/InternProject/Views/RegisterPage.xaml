@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InternProject.Views.RegisterPage"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="TextSize" TargetType="Label">
+                <Setter Property="FontSize" Value="15" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="2*" />
+        </Grid.RowDefinitions>
+
+        <StackLayout Grid.Row="0" Grid.Column="0">
+            <Image Source="icon.png" HeightRequest="125" WidthRequest="125"
+                   VerticalOptions="CenterAndExpand" HorizontalOptions="Center" />
+        </StackLayout>
+
+        <StackLayout Grid.Row="1" Grid.Column="0" Padding="60, 0, 60, 0">
+            <!--<Label Text="Username" Style="{StaticResource TextSize}"/>-->
+            <Entry Placeholder="Email Address" Keyboard="Email" Text="{Binding User.UsernameModel}" />
+
+            <!--<Label Text="Password" Style="{StaticResource TextSize}" />-->
+            <Entry Placeholder="Password" IsPassword="True" Text="{Binding User.PasswordModel}" />
+
+            <!--<Label Text="Re-enter Password" Style="{StaticResource TextSize}" />-->
+            <Entry Placeholder="Confirm Password" IsPassword="True" Text="{Binding ConfirmPassword}" />
+
+            <!--<Label Text="Phone" Style="{StaticResource TextSize}"/>-->
+            <Entry Placeholder="Phone" Keyboard="Telephone" Text="{Binding User.PhoneModel}" />
+
+            <Button Text="Register" Command="{Binding ClickRegisterCommand}" />
+
+            <Label HorizontalOptions="CenterAndExpand" Text="Have account? Login now" Style="{StaticResource TextSize}">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ClickHaveAccountCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+        </StackLayout>
+    </Grid>
+</ContentPage>
