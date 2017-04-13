@@ -10,7 +10,7 @@
     </ContentPage.ToolbarItems>
 
     <ListView
-        ItemsSource="{Binding Transactions}">
+        ItemsSource="{Binding Transactions, Mode=TwoWay}">
         <ListView.ItemTemplate>
             <DataTemplate>
                 <ViewCell>

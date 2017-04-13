@@ -80,5 +80,14 @@ namespace InternProject.ViewModels
                 OnPropertyChanged();
             }
         }
+        public string Username
+        {
+            get => _model.Username;
+            set
+            {
+                _model.Username = value;
+                OnPropertyChanged();
+            }
+        }
     }
 }

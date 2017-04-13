@@ -35,26 +35,12 @@ namespace InternProject
         }
         public string RememberUsername
         {
-            get
-            {
-                if (Properties.ContainsKey(UsernameKey))
-                {
-                    return Properties[UsernameKey].ToString();
-                }
-                return "";
-            }
+            get => Properties.ContainsKey(UsernameKey) ? Properties[UsernameKey].ToString() : "";
             set => Properties[UsernameKey] = value;
         }
         public string RememberPassword
         {
-            get
-            {
-                if (Properties.ContainsKey(PasswordKey))
-                {
-                    return Properties[PasswordKey].ToString();
-                }
-                return "";
-            }
+            get => Properties.ContainsKey(PasswordKey) ? Properties[PasswordKey].ToString() : "";
             set => Properties[PasswordKey] = value;
         }
         public bool IsRemember

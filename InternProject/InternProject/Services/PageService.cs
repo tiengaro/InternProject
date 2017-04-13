@@ -29,5 +29,6 @@ namespace InternProject.Services
         {
             Application.Current.MainPage.SendBackButtonPressed();
         }
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -50,11 +51,11 @@ namespace InternProject.Databases
             catch (ArgumentNullException) { return null; }
         }
 
-        public List<TransactionViewModel> GetTransactions()
+        public ObservableCollection<TransactionViewModel> GetTransactions()
         {
             try
             {
-                return _realm.All<Transaction>().ToList().Select(var => new TransactionViewModel { Model = var }).ToList();
+                return new ObservableCollection<TransactionViewModel>(_realm.All<Transaction>().ToList().Select(var => new TransactionViewModel { Model = var }).ToList());
             }
             catch (InvalidOperationException) { return null; }
             catch (ArgumentNullException) { return null; }

@@ -10,7 +10,7 @@ namespace InternProject.ViewModels
     {
         private readonly IPageService _pageService;
         private readonly UserDatabase _userDatabase;
-
+        private static UserViewModel _user;
         public LoginViewModel(IPageService pageService)
         {
             _pageService = pageService;
@@ -45,7 +45,8 @@ namespace InternProject.ViewModels
                 App.RememberPassword = "";
             }
 
-            if (_userDatabase.GetUser(User.UsernameModel, User.PasswordModel) != null)
+            _user = _userDatabase.GetUser(User.UsernameModel, User.PasswordModel);
+            if (_user != null)
                 _pageService.PushAsync(new HomePage());
             else
                 _pageService.DisplayAlert("Information", "Login unsuccess!", "ok");
@@ -66,5 +67,7 @@ namespace InternProject.ViewModels
             }
             return isValid;
         }
+
+        public static UserViewModel GetUser() => _user;
     }
 }

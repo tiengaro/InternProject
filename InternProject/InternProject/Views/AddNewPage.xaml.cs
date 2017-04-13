@@ -8,9 +8,14 @@ namespace InternProject.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AddNewPage : ContentPage
     {
+        public AddNewPageViewModel ViewModel
+        {
+            get => BindingContext as AddNewPageViewModel;
+            set => BindingContext = value;
+        }
         public AddNewPage()
         {
-            BindingContext = new AddNewPageViewModel(new PageService());
+            ViewModel = new AddNewPageViewModel(new PageService());
             InitializeComponent();
         }
     }

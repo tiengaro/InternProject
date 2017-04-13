@@ -10,11 +10,12 @@ using Xamarin.Forms;
 
 namespace InternProject.ViewModels
 {
-    internal class AddNewPageViewModel
+    public class AddNewPageViewModel : BaseViewModel
     {
         private readonly IPageService _pageService;
         private readonly TransactionDatabase _transactionDatabase;
         private readonly TypeDatabase _typeDatabase;
+        public event EventHandler<TransactionViewModel> TransactionAdded;
         private List<TypeViewModel> _types;
         public TransactionViewModel TransactionView { get; set; } = new TransactionViewModel();
         public ICommand ClickAddNewTransactionCommand { get; private set; }
@@ -47,20 +48,17 @@ namespace InternProject.ViewModels
             foreach (var type in _types)
                 Types.Add(type.TypeNameModel);
         }
-/*
-        private async Task AddNewTransaction()
-        {
-            _transactionDatabase.InsertTransaction(TransactionView.Model);
-            await _pageService.DisplayAlert("Notification", "Add successful", "OK");
-            TransactionView.Model = null;
-        }
-*/
 
         private void AddNewTransaction()
         {
             TransactionView.Id = DateTime.Now.Ticks;
+            TransactionView.Username = LoginViewModel.GetUser().UsernameModel;
             _transactionDatabase.InsertTransaction(TransactionView.Model);
+
+            TransactionAdded?.Invoke(this, TransactionView);
+
             TransactionView = new TransactionViewModel();
+            _pageService.DisplayAlert("Notification", "Add successful", "OK");
         }
     }
 }

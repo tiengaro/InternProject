@@ -12,15 +12,26 @@ namespace InternProject.ViewModels
     {
         public ICommand ClickAddNewCommand { get; private set; }
 
-        private IPageService PageService { get; }
-        public List<TransactionViewModel> Transactions { get; set; }
+        private readonly IPageService _pageService;
+        public ObservableCollection<TransactionViewModel> Transactions { get; set; }
         public HomePageTabHomeViewModel(IPageService pageService)
         {
-            PageService = pageService;
+            _pageService = pageService;
             var transactionDatabase = new TransactionDatabase();
 
             Transactions = transactionDatabase.GetTransactions();
-            ClickAddNewCommand = new Command(() => PageService.PushAsync(new AddNewPage()));
+            ClickAddNewCommand = new Command(OnAddedTransaction);
+        }
+
+        public async void OnAddedTransaction()
+        {
+            var page = new AddNewPage();
+
+            page.ViewModel.TransactionAdded += (source, transactionView) =>
+            {
+                Transactions.Add(transactionView);
+            };
+            await _pageService.PushAsync(page);
         }
     }
 }

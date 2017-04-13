@@ -49,7 +49,7 @@
                         <StackLayout Orientation="Horizontal" Spacing="5">
                             <BoxView WidthRequest="15" Color="Gray" />
                             <Label Text="Date" VerticalOptions="CenterAndExpand" />
-                            <DatePicker HorizontalOptions="FillAndExpand" Date="{Binding TransactionView.Date, Converter={StaticResource DateTimeToDateTimeOffsetConverter}"/>
+                            <DatePicker HorizontalOptions="FillAndExpand" Date="{Binding TransactionView.Date, Converter={StaticResource DateTimeToDateTimeOffsetConverter}}"/>
                         </StackLayout>
                     </ViewCell>
                 </TableSection>
