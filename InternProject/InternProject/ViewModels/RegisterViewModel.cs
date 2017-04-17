@@ -11,6 +11,11 @@ namespace InternProject.ViewModels
         private readonly IPageService _pageService;
         private readonly UserDatabase _userDatabase;
 
+        public string ConfirmPassword { get; set; }
+        public UserViewModel User { get; set; } = new UserViewModel();
+        public ICommand ClickHaveAccountCommand { get; }
+        public ICommand ClickRegisterCommand { get; }
+
         public RegisterViewModel(IPageService pageService)
         {
             _pageService = pageService;
@@ -19,12 +24,6 @@ namespace InternProject.ViewModels
             ClickHaveAccountCommand = new Command(() => _pageService.BackButtonPressed());
             ClickRegisterCommand = new Command(OnClickRegister);
         }
-
-        public string ConfirmPassword { get; set; }
-        public UserViewModel User { get; set; } = new UserViewModel();
-
-        public ICommand ClickHaveAccountCommand { get; private set; }
-        public ICommand ClickRegisterCommand { get; private set; }
 
         public async void OnClickRegister()
         {

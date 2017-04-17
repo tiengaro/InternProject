@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using InternProject.Models;
 
 namespace InternProject.ViewModels
@@ -35,6 +31,7 @@ namespace InternProject.ViewModels
                 OnPropertyChanged();
             }
         }
+
         public string Description
         {
             get => _model.Description;
@@ -44,6 +41,7 @@ namespace InternProject.ViewModels
                 OnPropertyChanged();
             }
         }
+
         public string Type
         {
             get => _model.Type;
@@ -53,6 +51,7 @@ namespace InternProject.ViewModels
                 OnPropertyChanged();
             }
         }
+
         public double Price
         {
             get => _model.Price;
@@ -62,6 +61,7 @@ namespace InternProject.ViewModels
                 OnPropertyChanged();
             }
         }
+
         public DateTimeOffset Date
         {
             get => _model.Date;
@@ -71,6 +71,7 @@ namespace InternProject.ViewModels
                 OnPropertyChanged();
             }
         }
+
         public string Note
         {
             get => _model.Note;
@@ -80,6 +81,7 @@ namespace InternProject.ViewModels
                 OnPropertyChanged();
             }
         }
+
         public string Username
         {
             get => _model.Username;

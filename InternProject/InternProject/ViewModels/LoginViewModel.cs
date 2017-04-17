@@ -8,9 +8,15 @@ namespace InternProject.ViewModels
 {
     public class LoginViewModel : BaseViewModel
     {
+        private static UserViewModel _user;
         private readonly IPageService _pageService;
         private readonly UserDatabase _userDatabase;
-        private static UserViewModel _user;
+
+        public UserViewModel User { get; set; } = new UserViewModel();
+        public App App { get; set; } = Application.Current as App;
+        public ICommand ClickRegisterNowCommand { get; }
+        public ICommand ClickLoginCommand { get; }
+
         public LoginViewModel(IPageService pageService)
         {
             _pageService = pageService;
@@ -22,12 +28,6 @@ namespace InternProject.ViewModels
             User.UsernameModel = App.RememberUsername;
             User.PasswordModel = App.RememberPassword;
         }
-
-        public UserViewModel User { get; set; } = new UserViewModel();
-        public App App { get; set; } = Application.Current as App;
-
-        public ICommand ClickRegisterNowCommand { get; private set; }
-        public ICommand ClickLoginCommand { get; private set; }
 
         private void OnClickLogin()
         {
@@ -67,6 +67,9 @@ namespace InternProject.ViewModels
             return isValid;
         }
 
-        public static UserViewModel GetUser() => _user;
+        public static UserViewModel GetUser()
+        {
+            return _user;
+        }
     }
 }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using InternProject.Models;
-using InternProject.ViewModels;
+﻿using InternProject.ViewModels;
 using Xamarin.Forms;
 
 namespace InternProject.Selectors
@@ -16,6 +10,7 @@ namespace InternProject.Selectors
         public DataTemplate DrinkingTemplate { get; set; }
         public DataTemplate FuelTemplate { get; set; }
         public DataTemplate OtherTemplate { get; set; }
+
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {
             var type = ((TransactionViewModel) item).Type;

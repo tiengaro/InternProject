@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace InternProject.Converters
@@ -27,7 +23,7 @@ namespace InternProject.Converters
         {
             try
             {
-                var date = (DateTime)value;
+                var date = (DateTime) value;
                 return new DateTimeOffset(date);
             }
             catch (Exception)

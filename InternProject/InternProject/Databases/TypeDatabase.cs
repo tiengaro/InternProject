@@ -71,14 +71,7 @@ namespace InternProject.Databases
         {
             try
             {
-                var types = new List<TypeViewModel>();
-                foreach (var var in _realm.All<TypeTransaction>().ToList())
-                {
-                    var type = new TypeViewModel();
-                    type.Model = var;
-                    types.Add(type);
-                }
-                return types;
+                return _realm.All<TypeTransaction>().ToList().Select(var => new TypeViewModel {Model = var}).ToList();
             }
             catch (InvalidOperationException)
             {

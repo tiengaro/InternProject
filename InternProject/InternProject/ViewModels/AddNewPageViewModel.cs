@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using InternProject.Databases;
 using InternProject.Models;
@@ -15,12 +13,14 @@ namespace InternProject.ViewModels
         private readonly IPageService _pageService;
         private readonly TransactionDatabase _transactionDatabase;
         private readonly TypeDatabase _typeDatabase;
-        public event EventHandler<TransactionViewModel> TransactionAdded;
         private List<TypeViewModel> _types;
+
         public TransactionViewModel TransactionView { get; set; } = new TransactionViewModel();
-        public ICommand ClickAddNewTransactionCommand { get; private set; }
-        public ICommand ClickCancelCommand { get; private set; }
         public List<string> Types { get; set; } = new List<string>();
+        public ICommand ClickAddNewTransactionCommand { get; }
+        public ICommand ClickCancelCommand { get; }
+        public event EventHandler<TransactionViewModel> TransactionAdded;
+
         public AddNewPageViewModel(IPageService pageService)
         {
             _pageService = pageService;
@@ -41,7 +41,7 @@ namespace InternProject.ViewModels
                 _types.Add(new TypeViewModel {Model = new TypeTransaction {IdType = 2, TypeName = "Eating"}});
                 _types.Add(new TypeViewModel {Model = new TypeTransaction {IdType = 3, TypeName = "Drinking"}});
                 _types.Add(new TypeViewModel {Model = new TypeTransaction {IdType = 4, TypeName = "Fuel"}});
-                _types.Add(new TypeViewModel { Model = new TypeTransaction { IdType = 5, TypeName = "Other" } });
+                _types.Add(new TypeViewModel {Model = new TypeTransaction {IdType = 5, TypeName = "Other"}});
                 foreach (var type in _types)
                     _typeDatabase.InsertType(type.Model);
             }
@@ -59,7 +59,7 @@ namespace InternProject.ViewModels
             TransactionAdded?.Invoke(this, TransactionView);
 
             TransactionView = new TransactionViewModel();
-            _pageService.DisplayAlert("Notification", "Add successful", "OK");
+            _pageService.DisplayAlert("Notification", "Add successed", "OK");
         }
     }
 }
