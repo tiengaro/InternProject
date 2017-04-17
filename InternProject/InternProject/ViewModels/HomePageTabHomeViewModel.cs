@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using InternProject.Databases;
 using InternProject.Services;
@@ -19,7 +20,9 @@ namespace InternProject.ViewModels
             _pageService = pageService;
             var transactionDatabase = new TransactionDatabase();
 
+            Transactions = new ObservableCollection<TransactionViewModel>();
             Transactions = transactionDatabase.GetTransactions(LoginViewModel.GetUser().Model.Username);
+            Transactions = new ObservableCollection<TransactionViewModel>(Transactions.OrderByDescending(t => t.Date).ToList());
             ClickAddNewCommand = new Command(OnAddedTransaction);
         }
 
@@ -30,6 +33,7 @@ namespace InternProject.ViewModels
             page.ViewModel.TransactionAdded += (source, transactionView) =>
             {
                 Transactions.Add(transactionView);
+
             };
             await _pageService.PushAsync(page);
         }

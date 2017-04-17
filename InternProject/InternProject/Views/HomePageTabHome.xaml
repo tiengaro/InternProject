@@ -12,10 +12,13 @@
 
     <ContentPage.Resources>
         <ResourceDictionary>
+            <Style x:Key="BoxViewStyle" TargetType="BoxView">
+                <Setter Property="WidthRequest">10</Setter>
+            </Style>
             <DataTemplate x:Key="ShoppingTemplate">
                 <ViewCell>
                     <StackLayout Orientation="Horizontal">
-                        <BoxView WidthRequest="15" Color="Blue" />
+                        <BoxView Style="{StaticResource BoxViewStyle}" Color="Blue" />
 
                         <StackLayout HorizontalOptions="StartAndExpand"
                                      Padding="5, 0">
@@ -30,7 +33,7 @@
 
                         <StackLayout HorizontalOptions="End">
                             <Label Text="{Binding Price}" HorizontalOptions="CenterAndExpand" />
-                            <Label Text="{Binding Date}" HorizontalOptions="CenterAndExpand" />
+                            <Label Text="{Binding Date, StringFormat='{0:d/MM/yyyy}'}" HorizontalOptions="CenterAndExpand" />
                         </StackLayout>
                     </StackLayout>
                 </ViewCell>
@@ -39,7 +42,7 @@
             <DataTemplate x:Key="EatingTemplate">
                 <ViewCell>
                     <StackLayout Orientation="Horizontal">
-                        <BoxView WidthRequest="15" Color="Red" />
+                        <BoxView Style="{StaticResource BoxViewStyle}" Color="Red" />
 
                         <StackLayout HorizontalOptions="StartAndExpand"
                                      Padding="5, 0">
@@ -54,7 +57,7 @@
 
                         <StackLayout HorizontalOptions="End">
                             <Label Text="{Binding Price}" HorizontalOptions="CenterAndExpand" />
-                            <Label Text="{Binding Date}" HorizontalOptions="CenterAndExpand" />
+                            <Label Text="{Binding Date, StringFormat='{0:d/MM/yyyy}'}" HorizontalOptions="CenterAndExpand" />
                         </StackLayout>
                     </StackLayout>
                 </ViewCell>
@@ -63,7 +66,7 @@
             <DataTemplate x:Key="DrinkingTemplate">
                 <ViewCell>
                     <StackLayout Orientation="Horizontal">
-                        <BoxView WidthRequest="15" Color="Yellow" />
+                        <BoxView Style="{StaticResource BoxViewStyle}" Color="Yellow" />
 
                         <StackLayout HorizontalOptions="StartAndExpand"
                                      Padding="5, 0">
@@ -78,7 +81,7 @@
 
                         <StackLayout HorizontalOptions="End">
                             <Label Text="{Binding Price}" HorizontalOptions="CenterAndExpand" />
-                            <Label Text="{Binding Date}" HorizontalOptions="CenterAndExpand" />
+                            <Label Text="{Binding Date, StringFormat='{0:d/MM/yyyy}'}" HorizontalOptions="CenterAndExpand" />
                         </StackLayout>
                     </StackLayout>
                 </ViewCell>
@@ -87,7 +90,7 @@
             <DataTemplate x:Key="FuelTemplate">
                 <ViewCell>
                     <StackLayout Orientation="Horizontal">
-                        <BoxView WidthRequest="15" Color="YellowGreen" />
+                        <BoxView Style="{StaticResource BoxViewStyle}" Color="YellowGreen" />
 
                         <StackLayout HorizontalOptions="StartAndExpand"
                                      Padding="5, 0">
@@ -102,7 +105,7 @@
 
                         <StackLayout HorizontalOptions="End">
                             <Label Text="{Binding Price}" HorizontalOptions="CenterAndExpand" />
-                            <Label Text="{Binding Date}" HorizontalOptions="CenterAndExpand" />
+                            <Label Text="{Binding Date, StringFormat='{0:d/MM/yyyy}'}" HorizontalOptions="CenterAndExpand" />
                         </StackLayout>
                     </StackLayout>
                 </ViewCell>
@@ -111,7 +114,7 @@
             <DataTemplate x:Key="OtherTemplate">
                 <ViewCell>
                     <StackLayout Orientation="Horizontal">
-                        <BoxView WidthRequest="15" Color="Gray" />
+                        <BoxView Style="{StaticResource BoxViewStyle}" Color="Gray" />
 
                         <StackLayout HorizontalOptions="StartAndExpand"
                                      Padding="5, 0">
@@ -126,24 +129,23 @@
 
                         <StackLayout HorizontalOptions="End">
                             <Label Text="{Binding Price}" HorizontalOptions="CenterAndExpand" />
-                            <Label Text="{Binding Date}" HorizontalOptions="CenterAndExpand" />
+                            <Label Text="{Binding Date, StringFormat='{0:d/MM/yyyy}'}" HorizontalOptions="CenterAndExpand" />
                         </StackLayout>
                     </StackLayout>
                 </ViewCell>
             </DataTemplate>
-            
+
             <local:TransactionsDataTemplateSelector x:Key="TransactionsDataTemplateSelector" 
                                                     ShoppingTemplate="{StaticResource ShoppingTemplate}" 
                                                     EatingTemplate="{StaticResource EatingTemplate}"
                                                     DrinkingTemplate="{StaticResource DrinkingTemplate}"
                                                     FuelTemplate="{StaticResource FuelTemplate}"
                                                     OtherTemplate="{StaticResource OtherTemplate}" />
-
         </ResourceDictionary>
-        
-        
     </ContentPage.Resources>
-    <ListView
+    <StackLayout>
+        <SearchBar Placeholder="Search..." />
+        <ListView
         ItemsSource="{Binding Transactions, Mode=TwoWay}"
         ItemTemplate="{StaticResource TransactionsDataTemplateSelector}">
         <!--<ListView.ItemTemplate>
@@ -165,11 +167,13 @@
 
                         <StackLayout HorizontalOptions="End">
                             <Label Text="{Binding Price}" HorizontalOptions="CenterAndExpand" />
-                            <Label Text="{Binding Date}" HorizontalOptions="CenterAndExpand" />
+                            <Label Text="{Binding Date, StringFormat='{0:d/MM/yyyy}'}" HorizontalOptions="CenterAndExpand" />
                         </StackLayout>
                     </StackLayout>
                 </ViewCell>
             </DataTemplate>
         </ListView.ItemTemplate>-->
     </ListView>
+    </StackLayout>
+    
 </ContentPage>

@@ -8,6 +8,10 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:DateTimeToDateTimeOffsetConverter x:Key="DateTimeToDateTimeOffsetConverter" />
+            <converters:FocusToColorConverter x:Key="FocusToColorConverter" />
+            <Style x:Key="BoxViewStyle" TargetType="BoxView">
+                <Setter Property="WidthRequest">10</Setter>
+            </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
     
@@ -17,9 +21,9 @@
                 <TableSection>
                     <ViewCell>
                         <StackLayout Orientation="Horizontal" Spacing="5">
-                            <BoxView WidthRequest="15" Color="Blue" />
+                            <BoxView Style="{StaticResource BoxViewStyle}" Color="{Binding Source={x:Reference E1}, Path=IsFocused, Converter={StaticResource FocusToColorConverter}}" />
                             <Label Text="Desciption" VerticalOptions="CenterAndExpand" />
-                            <Entry HorizontalOptions="FillAndExpand" Text="{Binding TransactionView.Description, Mode=TwoWay}"/>
+                            <Entry HorizontalOptions="FillAndExpand" Text="{Binding TransactionView.Description, Mode=TwoWay}" x:Name="E1"/>
                         </StackLayout>
                     </ViewCell>
                 </TableSection>
@@ -27,9 +31,9 @@
                 <TableSection Title=" ">
                     <ViewCell>
                         <StackLayout Orientation="Horizontal" Spacing="5">
-                            <BoxView WidthRequest="15" Color="Gray" />
+                            <BoxView Style="{StaticResource BoxViewStyle}" Color="{Binding Source={x:Reference P1}, Path=IsFocused, Converter={StaticResource FocusToColorConverter}}" />
                             <Label Text="Type" VerticalOptions="CenterAndExpand" />
-                            <Picker HorizontalOptions="FillAndExpand" ItemsSource="{Binding Types}" SelectedItem="{Binding TransactionView.Type}"/>
+                            <Picker HorizontalOptions="FillAndExpand" ItemsSource="{Binding Types}" SelectedItem="{Binding TransactionView.Type}" x:Name="P1"/>
                         </StackLayout>
                     </ViewCell>
                 </TableSection>
@@ -37,9 +41,9 @@
                 <TableSection Title=" ">
                     <ViewCell>
                         <StackLayout Orientation="Horizontal" Spacing="5">
-                            <BoxView WidthRequest="15" Color="Gray" />
+                            <BoxView Style="{StaticResource BoxViewStyle}" Color="{Binding Source={x:Reference E2}, Path=IsFocused, Converter={StaticResource FocusToColorConverter}}" />
                             <Label Text="Price" VerticalOptions="CenterAndExpand" />
-                            <Entry Keyboard="Numeric" HorizontalOptions="FillAndExpand" Text="{Binding TransactionView.Price, Mode=TwoWay}"/>
+                            <Entry Keyboard="Numeric" HorizontalOptions="FillAndExpand" Text="{Binding TransactionView.Price, Mode=TwoWay}" x:Name="E2"/>
                         </StackLayout>
                     </ViewCell>
                 </TableSection>
@@ -47,9 +51,9 @@
                 <TableSection Title=" ">
                     <ViewCell>
                         <StackLayout Orientation="Horizontal" Spacing="5">
-                            <BoxView WidthRequest="15" Color="Gray" />
+                            <BoxView Style="{StaticResource BoxViewStyle}" Color="{Binding Source={x:Reference P2}, Path=IsFocused, Converter={StaticResource FocusToColorConverter}}" />
                             <Label Text="Date" VerticalOptions="CenterAndExpand" />
-                            <DatePicker HorizontalOptions="FillAndExpand" Date="{Binding TransactionView.Date, Converter={StaticResource DateTimeToDateTimeOffsetConverter}}"/>
+                            <DatePicker HorizontalOptions="FillAndExpand" Date="{Binding TransactionView.Date, Converter={StaticResource DateTimeToDateTimeOffsetConverter}}" x:Name="P2"/>
                         </StackLayout>
                     </ViewCell>
                 </TableSection>

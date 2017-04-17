@@ -39,6 +39,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\DateTimeToDateTimeOffsetConverter.cs" />
+    <Compile Include="Converters\FocusToColorConverter.cs" />
     <Compile Include="Databases\TransactionDatabase.cs" />
     <Compile Include="Databases\TypeDatabase.cs" />
     <Compile Include="Databases\UserDatabase.cs" />
