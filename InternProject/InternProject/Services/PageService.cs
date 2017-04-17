@@ -25,6 +25,11 @@ namespace InternProject.Services
             await Application.Current.MainPage.Navigation.PushModalAsync(page);
         }
 
+        public async Task PopToRootAsync()
+        {
+            await Application.Current.MainPage.Navigation.PopToRootAsync();
+        }
+
         public void BackButtonPressed()
         {
             Application.Current.MainPage.SendBackButtonPressed();

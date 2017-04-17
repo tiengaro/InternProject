@@ -1,4 +1,6 @@
-﻿using Xamarin.Forms;
+﻿using InternProject.Services;
+using InternProject.ViewModels;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace InternProject.Views
@@ -8,6 +10,7 @@ namespace InternProject.Views
     {
         public HomePageTabSetting()
         {
+            BindingContext = new HomePageTabSettingViewModel(new PageService());
             InitializeComponent();
         }
     }

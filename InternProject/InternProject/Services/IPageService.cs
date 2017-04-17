@@ -9,6 +9,7 @@ namespace InternProject.Services
         Task DisplayAlert(string title, string message, string ok);
         Task PushAsync(Page page);
         Task PushModelAsync(Page page);
+        Task PopToRootAsync();
         void BackButtonPressed();
     }
 }

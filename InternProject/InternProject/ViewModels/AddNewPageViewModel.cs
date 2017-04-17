@@ -41,6 +41,7 @@ namespace InternProject.ViewModels
                 _types.Add(new TypeViewModel {Model = new TypeTransaction {IdType = 2, TypeName = "Eating"}});
                 _types.Add(new TypeViewModel {Model = new TypeTransaction {IdType = 3, TypeName = "Drinking"}});
                 _types.Add(new TypeViewModel {Model = new TypeTransaction {IdType = 4, TypeName = "Fuel"}});
+                _types.Add(new TypeViewModel { Model = new TypeTransaction { IdType = 5, TypeName = "Other" } });
                 foreach (var type in _types)
                     _typeDatabase.InsertType(type.Model);
             }

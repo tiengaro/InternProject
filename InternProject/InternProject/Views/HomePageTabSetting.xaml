@@ -8,6 +8,6 @@
     <StackLayout Spacing="10">
         <Button Text="My Account" />
         <Button Text="Help" />
-        <Button Text="Logout" />
+        <Button Text="Logout" Command="{Binding ClickLogoutCommand}"/>
     </StackLayout>
 </ContentPage>

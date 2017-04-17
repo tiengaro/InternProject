@@ -44,7 +44,6 @@ namespace InternProject.ViewModels
                 App.RememberUsername = "";
                 App.RememberPassword = "";
             }
-
             _user = _userDatabase.GetUser(User.UsernameModel, User.PasswordModel);
             if (_user != null)
                 _pageService.PushAsync(new HomePage());

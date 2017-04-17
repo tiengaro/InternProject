@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using InternProject.Models;
 using InternProject.ViewModels;
 using Realms;
 using Realms.Exceptions;
@@ -51,11 +52,12 @@ namespace InternProject.Databases
             catch (ArgumentNullException) { return null; }
         }
 
-        public ObservableCollection<TransactionViewModel> GetTransactions()
+        public ObservableCollection<TransactionViewModel> GetTransactions(string username)
         {
             try
             {
-                return new ObservableCollection<TransactionViewModel>(_realm.All<Transaction>().ToList().Select(var => new TransactionViewModel { Model = var }).ToList());
+                //return new ObservableCollection<TransactionViewModel>(_realm.All<Transaction>().ToList().Select(var => new TransactionViewModel { Model = var }).ToList());
+                return new ObservableCollection<TransactionViewModel>(_realm.All<Transaction>().Where(u => u.Username == username).ToList().Select(var => new TransactionViewModel() {Model = var}).ToList());
             }
             catch (InvalidOperationException) { return null; }
             catch (ArgumentNullException) { return null; }

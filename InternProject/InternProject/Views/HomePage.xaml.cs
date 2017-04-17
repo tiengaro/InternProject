@@ -1,4 +1,4 @@
-﻿using Xamarin.Forms;
+﻿    using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace InternProject.Views
@@ -9,6 +9,12 @@ namespace InternProject.Views
         public HomePage()
         {
             InitializeComponent();
+            NavigationPage.SetHasBackButton(this, false);
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            return true;
         }
     }
 }

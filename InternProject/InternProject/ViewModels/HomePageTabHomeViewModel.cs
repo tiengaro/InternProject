@@ -19,7 +19,7 @@ namespace InternProject.ViewModels
             _pageService = pageService;
             var transactionDatabase = new TransactionDatabase();
 
-            Transactions = transactionDatabase.GetTransactions();
+            Transactions = transactionDatabase.GetTransactions(LoginViewModel.GetUser().Model.Username);
             ClickAddNewCommand = new Command(OnAddedTransaction);
         }
 
