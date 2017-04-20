@@ -13,13 +13,9 @@ namespace InternProject.ViewModels
         private readonly IPageService _pageService;
         private readonly TransactionDatabase _transactionDatabase;
         private readonly TypeDatabase _typeDatabase;
-        private List<TypeViewModel> _types;
 
-        public TransactionViewModel TransactionView { get; set; } = new TransactionViewModel();
-        public List<string> Types { get; set; } = new List<string>();
-        public ICommand ClickAddNewTransactionCommand { get; }
-        public ICommand ClickCancelCommand { get; }
-        public event EventHandler<TransactionViewModel> TransactionAdded;
+        private List<TypeViewModel> _types;
+        //public event EventHandler<TransactionViewModel> TransactionAdded;
 
         public AddNewPageViewModel(IPageService pageService)
         {
@@ -30,8 +26,13 @@ namespace InternProject.ViewModels
 
             GetTypeDatabase();
             ClickAddNewTransactionCommand = new Command(AddNewTransaction);
-            ClickCancelCommand = new Command(() => _pageService.BackButtonPressed());
+            ClickCancelCommand = new Command(() => _pageService.PopAsync());
         }
+
+        public TransactionViewModel TransactionView { get; set; } = new TransactionViewModel();
+        public List<string> Types { get; set; } = new List<string>();
+        public ICommand ClickAddNewTransactionCommand { get; }
+        public ICommand ClickCancelCommand { get; }
 
         private void GetTypeDatabase()
         {
@@ -56,10 +57,11 @@ namespace InternProject.ViewModels
             TransactionView.Username = LoginViewModel.GetUser().UsernameModel;
             _transactionDatabase.InsertTransaction(TransactionView.Model);
 
-            TransactionAdded?.Invoke(this, TransactionView);
+            MessagingCenter.Send(this, "AddTransaction");
+            //TransactionAdded?.Invoke(this, TransactionView);
 
-            TransactionView = new TransactionViewModel();
-            _pageService.DisplayAlert("Notification", "Add successed", "OK");
+            //TransactionView = new TransactionViewModel();
+            _pageService.PopAsync();
         }
     }
 }

@@ -149,7 +149,8 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <StackLayout>
-        <SearchBar Placeholder="Search..." />
+        <SearchBar Placeholder="Search..."
+                   TextChanged="SearchBar_OnTextChanged" />
         <ListView
             ItemsSource="{Binding Transactions, Mode=TwoWay}"
             ItemTemplate="{StaticResource TransactionsDataTemplateSelector}">

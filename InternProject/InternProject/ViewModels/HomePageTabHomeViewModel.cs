@@ -1,5 +1,5 @@
-﻿using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 using InternProject.Databases;
 using InternProject.Services;
@@ -8,31 +8,64 @@ using Xamarin.Forms;
 
 namespace InternProject.ViewModels
 {
-    public class HomePageTabHomeViewModel
+    public class HomePageTabHomeViewModel : BaseViewModel
     {
         private readonly IPageService _pageService;
-
-        public ICommand ClickAddNewCommand { get; }
-        public ObservableCollection<TransactionViewModel> Transactions { get; set; }
+        private readonly TransactionDatabase _transactionDatabase;
+        private readonly string _username;
+        private ObservableCollection<TransactionViewModel> _transactions;
 
         public HomePageTabHomeViewModel(IPageService pageService)
         {
             _pageService = pageService;
-            var transactionDatabase = new TransactionDatabase();
+            _transactionDatabase = new TransactionDatabase();
 
-            Transactions = new ObservableCollection<TransactionViewModel>();
-            Transactions = transactionDatabase.GetTransactions(LoginViewModel.GetUser().Model.Username);
-            Transactions =
-                new ObservableCollection<TransactionViewModel>(Transactions.OrderByDescending(t => t.Date).ToList());
+            _username = LoginViewModel.GetUser().Model.Username;
+
+            _transactions = _transactionDatabase.GetTransactions(LoginViewModel.GetUser().Model.Username);
+
             ClickAddNewCommand = new Command(OnAddedTransaction);
+            SearchTransactionCommand = new Command<string>(SearchTransaction);
+
+            MessagingCenter.Subscribe<AddNewPageViewModel>(this, "AddTransaction",
+                sender => { LoadData(_transactionDatabase.GetTransactions(_username)); });
         }
 
-        public async void OnAddedTransaction()
+        public ICommand ClickAddNewCommand { get; }
+        public ICommand SearchTransactionCommand { get; }
+
+        public ObservableCollection<TransactionViewModel> Transactions
+        {
+            get => _transactions;
+            set
+            {
+                _transactions = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private void OnAddedTransaction()
         {
             var page = new AddNewPage();
 
-            page.ViewModel.TransactionAdded += (source, transactionView) => { Transactions.Add(transactionView); };
-            await _pageService.PushAsync(page);
+            _pageService.PushAsync(page);
+        }
+
+        private void SearchTransaction(string filter)
+        {
+            if (string.IsNullOrWhiteSpace(filter))
+            {
+                LoadData(_transactionDatabase.GetTransactions(_username));
+                return;
+            }
+            LoadData(_transactionDatabase.GetTransactions(_username, filter));
+        }
+
+        private void LoadData(IEnumerable<TransactionViewModel> transactionsList)
+        {
+            _transactions.Clear();
+            foreach (var transaction in transactionsList)
+                _transactions.Add(transaction);
         }
     }
 }

@@ -10,6 +10,7 @@ namespace InternProject.Services
         Task PushAsync(Page page);
         Task PushModelAsync(Page page);
         Task PopToRootAsync();
+        Task PopAsync();
         void BackButtonPressed();
     }
 }

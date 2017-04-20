@@ -10,8 +10,19 @@ namespace InternProject.Views
     {
         public HomePageTabHome()
         {
-            BindingContext = new HomePageTabHomeViewModel(new PageService());
+            ViewModel = new HomePageTabHomeViewModel(new PageService());
             InitializeComponent();
+        }
+
+        public HomePageTabHomeViewModel ViewModel
+        {
+            get => BindingContext as HomePageTabHomeViewModel;
+            private set => BindingContext = value;
+        }
+
+        private void SearchBar_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            ViewModel.SearchTransactionCommand.Execute(e.NewTextValue);
         }
     }
 }

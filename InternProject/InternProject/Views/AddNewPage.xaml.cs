@@ -17,7 +17,7 @@ namespace InternProject.Views
         public AddNewPageViewModel ViewModel
         {
             get => BindingContext as AddNewPageViewModel;
-            set => BindingContext = value;
+            private set => BindingContext = value;
         }
     }
 }

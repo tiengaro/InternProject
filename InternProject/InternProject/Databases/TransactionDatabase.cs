@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using InternProject.ViewModels;
@@ -54,12 +55,45 @@ namespace InternProject.Databases
         {
             try
             {
-                //return new ObservableCollection<TransactionViewModel>(_realm.All<Transaction>().ToList().Select(var => new TransactionViewModel { Model = var }).ToList());
                 return new ObservableCollection<TransactionViewModel>(_realm.All<Transaction>()
                     .Where(u => u.Username == username)
+                    .OrderByDescending(t => t.Date)
                     .ToList()
                     .Select(var => new TransactionViewModel {Model = var})
                     .ToList());
+            }
+            catch (InvalidOperationException)
+            {
+                return null;
+            }
+            catch (ArgumentNullException)
+            {
+                return null;
+            }
+        }
+
+        public ObservableCollection<TransactionViewModel> GetTransactions(string username, string filter)
+        {
+            try
+            {
+                var filterByDesc = _realm.All<Transaction>()
+                    .Where(u => u.Username == username)
+                    .Where(d => d.Description.StartsWith(filter, StringComparison.OrdinalIgnoreCase))
+                    .OrderByDescending(t => t.Date)
+                    .ToList()
+                    .Select(var => new TransactionViewModel {Model = var})
+                    .ToList();
+
+                var filterByType =
+                    _realm.All<Transaction>()
+                        .Where(u => u.Username == username)
+                        .Where(d => d.Type.StartsWith(filter, StringComparison.OrdinalIgnoreCase))
+                        .OrderByDescending(t => t.Date)
+                        .ToList()
+                        .Select(var => new TransactionViewModel {Model = var})
+                        .ToList();
+                filterByDesc.AddRange(filterByType);
+                return new ObservableCollection<TransactionViewModel>(filterByDesc);
             }
             catch (InvalidOperationException)
             {
